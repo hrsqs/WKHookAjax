@@ -117,6 +117,9 @@
 				params.url = url;
 
 				var xhrId = 'xhrId' + (new Date()).getTime();
+                while (window.OMTAjax.hookedXHR[xhrId] != null) {// 防止1ms内请求多个接口导致value覆盖
+                    xhrId = xhrId + '0';
+                }
                 params.id = xhrId;
 				window.OMTAjax.hookedXHR[xhrId] = this;
 				window.OMTAjax.nativePost(xhrId, params);
