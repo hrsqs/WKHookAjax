@@ -103,10 +103,11 @@
 		},
 		send: function(arg, xhr) {
 			this.isAborted = false;
-			if (this.omtOpenArg[0] === 'POST' || this.omtOpenArg[0] === 'post') {
+            // iOS9需要对get方式进行hook，10及以上可以不需要
+			if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET') {
 				var params = {};
 				params.data = arg[0];
-				params.method = 'POST';
+				params.method = this.omtOpenArg[0];
 				params.headers = this.omtHeaders;
 
 				var url = this.omtOpenArg[1];
